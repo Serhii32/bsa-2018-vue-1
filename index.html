@@ -8,22 +8,26 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
 	<div id="app">
 		<nav class="navbar bg-dark">
 			<button class="btn btn-primary" data-toggle="modal" data-target="#addUser">Add new user</button>
 			<form class="form-inline">
-			    <input class="form-control mr-sm-2" type="text" placeholder="Find user">
-			    <button class="btn btn-success">Search</button>
+			    <input class="form-control mr-sm-2" v-model="search" type="text" placeholder="Find user">
+			    <label style="color: white; margin: 10px;">
+			    	<input type="radio" v-model="searchRadio" value="name" name="optradio" checked>Name
+			    </label>
+				<label style="color: white; margin: 10px;">
+					<input type="radio" v-model="searchRadio" value="email" name="optradio">Email
+				</label>
 		  	</form>
 		</nav>
 		<br>
 		<br>
 		<div class="container">
 		  	<div class="row">
-				<div v-for="user in users">
+				<div v-for="user in filteredUsers">
 					<div class="card" style="width:250px; margin: 10px;">
 					    <img class="card-img-top" :src="user.avatar" alt="User avatar" style="width:100%">
 					    <div class="card-body">

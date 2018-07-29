@@ -3,20 +3,37 @@ var app = new Vue ({
 	data: {
 		users : null,
 		workUser: [],
+		search: null,
+		searchRadio: "name",
 	},
 
-	created: function () {
+	beforeCreate: function () {
 		var _this = this;
         $.getJSON('https://jsonplaceholder.typicode.com/users', function (users) {
             _this.users = users;
             let counter = 1;
-            _this.users.forEach(function(user){
+            _this.users.forEach(user => {
 			  	user.avatar = 'img/' + counter + '.jpg';
 			  	counter++;
 			});
         });
     },
 
+    computed: {
+    	filteredUsers() {
+    		if (this.search) {
+	      		return this.users.filter(user => {
+	      			if (this.searchRadio == "email") {
+	        			return user.email.toLowerCase().includes(this.search.toLowerCase());
+	        		} else {
+	        			return user.name.toLowerCase().includes(this.search.toLowerCase());
+	        		}
+	    	  	})
+    	  	}
+    	  	return this.users;
+  	  	}
+   	},
+ 
     methods: {
 		addUser: function() {
 			if (this.workUser.name && this.workUser.email && this.workUser.avatar) {
