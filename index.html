@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Users</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+	<div id="app">
+		<nav class="navbar bg-dark">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#addUser">Add new user</button>
+			<form class="form-inline">
+			    <input class="form-control mr-sm-2" type="text" placeholder="Find user">
+			    <button class="btn btn-success">Search</button>
+		  	</form>
+		</nav>
+		<br>
+		<br>
+		<div class="container">
+		  	<div class="row">
+				<div v-for="user in users">
+					<div class="card" style="width:250px; margin: 10px;">
+					    <img class="card-img-top" :src="user.avatar" alt="User avatar" style="width:100%">
+					    <div class="card-body">
+						    <h4 class="card-title">{{ user.id }}.</h4>
+						    <h4 class="card-title">{{ user.name }}</h4>
+						    <p class="card-text">{{ user.email }}</p>
+						    <button @click="editUser(user)" class="btn btn-success" data-toggle="modal" data-target="#editUser">Edit</button>
+							<button @click="deleteUser(user)" class="btn btn-danger">Delete</button>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="addUser" class="modal fade" role="dialog">
+
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h4 class="modal-title">Add new user</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<input type="name" class="form-control" id="name" placeholder="Name" name="name" v-model="workUser.name">
+							<input type="email" class="form-control" id="email" placeholder="Email" name="email" v-model="workUser.email">
+							<input type="avatar" class="form-control" id="avatar" placeholder="Avatar url" name="email" v-model="workUser.avatar">
+							<button @click="addUser" type="button" class="btn btn-primary" data-dismiss="modal">Add user</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div id="editUser" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+
+					<div class="modal-header">
+						<h4 class="modal-title">Edit user id: {{ workUser.id }}</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+
+					<div class="modal-body">
+						<form class="form-horizontal">
+							<input type="name" class="form-control" id="name" name="name" v-model="workUser.name">
+							<input type="email" class="form-control" id="email" name="email" v-model="workUser.email">
+							<input type="avatar" class="form-control" id="avatar" name="avatar" v-model="workUser.avatar">
+							<button @click="updateUser(workUser);" type="button" class="btn btn-primary" data-dismiss="modal">Edit user</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+	<script src="main.js"></script>
+</body>
+</html>
